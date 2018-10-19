@@ -1,0 +1,12 @@
+select title, answer_text from questions q, answers a, users u where q.id = a.question_id and u.id = a.user_id and q.id IN(select a.question_id from questions q, answers a, users u where a.user_id = u.id and q.id = a.question_id and q.user_id NOT IN(select id from users where email='msaman94@gmail.com'))");
+
+
+select title, answer_text from questions q, answers a where q.id = a.question_id and title IN (select title from questions q, answers a where q.id = a.question_id and q.id IN(select id from questions where user_id NOT IN(select id from users where email='msaman94@gmail.com')) and a.user_id IN(select id from users where email='msaman94@gmail.com')); 
+
+
+
+
+
+
+select title, answer_text from questions q, answers a where q.id = a.question_id and title IN (select title from questions q, answers a where q.id = a.question_id and q.id IN(select id from questions where user_id NOT IN(select id from users where email='"+str+"')) and a.user_id IN(select id from users where email='"+str+"')) and answer_text IN(select answer_text from answers)");
+%>

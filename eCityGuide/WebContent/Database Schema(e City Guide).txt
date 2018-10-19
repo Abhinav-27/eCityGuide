@@ -1,0 +1,57 @@
+# Create table users  
+create table users (
+  id              bigint auto_increment not null,
+  fname           varchar(30) not null,
+  lname           varchar(30) not null,
+  mob             BIGINT(30) not null,
+  email           varchar(100) not null,
+  password        varchar(100) not null,
+  date_created	  DateTime,
+  constraint pk_users primary key (id)
+);
+
+
+# Create table question
+create table questions (
+  id                bigint auto_increment not null,
+  user_id           bigint not null,
+  title             varchar(255) not null,
+  date_created      DateTime not null,
+  constraint pk_questions primary key (id)
+);
+
+alter table questions add constraint fk_questions_user_id foreign key (user_id) references users(id);
+
+
+
+# Create table answers
+create table answers (
+  id                        bigint auto_increment not null,
+  user_id                   bigint not null,
+  question_id               bigint not null,
+  answer_text               text,
+  date_created              DateTime not null,
+  constraint pk_questions primary key (id)
+);
+
+alter table answers add constraint fk_answers_user_id foreign key (user_id) references users(id);
+alter table answers add constraint fk_answers_question_id foreign key (question_id) references questions(id);
+
+
+#Create table rating
+create table rating (
+ id                      bigint auto_increment not null,
+ user_id                 bigint not null,
+ question_id             bigint not null,
+ answer_id               bigint not null,
+ rating                  varchar(10) not null,
+ date_created            DateTime not null,
+ constraint pk_questions primary key(id)
+ );
+ 
+ alter table rating add constraint fk_rating_user_id foreign key(user_id) references users(id);
+ alter table rating add constraint fk_rating_question_id foreign key(question_id) references questions(id);
+ alter table rating add constraint fk_rating_answer_id foreign key(answer_id) references answers(id);
+
+
+
